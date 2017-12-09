@@ -22,7 +22,7 @@ class APIClient(metaclass=ABCMeta):
     authentication.
     """
 
-    def __init__(self, uri, api_version=None, key=None, secret=None, timeout=5):
+    def __init__(self, uri, api_version=None, key=None, secret=None, timeout=100):
         """
         Create API Client object.
         :param uri: string address for api (i.e. https://api.kraken.com/
@@ -35,9 +35,9 @@ class APIClient(metaclass=ABCMeta):
         self.uri = uri
         self.version = api_version if api_version else ''
         self.timeout = timeout
-        log.debug("Initialized API Client for URI: %s; "
-                  "Will request on API version: %s" %
-                  (self.uri, self.version))
+        #log.debug("Initialized API Client for URI: %s; "
+        #          "Will request on API version: %s" %
+        #         (self.uri, self.version))
 
     def load_key(self, path):
         """
@@ -53,7 +53,7 @@ class APIClient(metaclass=ABCMeta):
         Creates a Nonce value for signature generation
         :return:
         """
-        return str(round(100000 * time.time()) * 2) 
+        return str(round(100000 * time.time()) * 2000) 
 
     @staticmethod
     def api_request(*args, **kwargs):
@@ -107,11 +107,11 @@ class APIClient(metaclass=ABCMeta):
                                             method_verb, *args, **kwargs)
         else:
             request_kwargs = kwargs
-        log.debug("Making request to: %s, kwargs: %s", url, request_kwargs)
+        #log.debug("Making request to: %s, kwargs: %s", url, request_kwargs)
         r = self.api_request(method_verb, url, timeout=self.timeout,
                              **request_kwargs)
-        log.debug("Made %s request made to %s, with headers %s and body %s. "
-                  "Status code %s", r.request.method,
-                  r.request.url, r.request.headers,
-                  r.request.body, r.status_code)
+        #log.debug("Made %s request made to %s, with headers %s and body %s. "
+        #          "Status code %s", r.request.method,
+        #         r.request.url, r.request.headers,
+        #          r.request.body, r.status_code)
         return r
