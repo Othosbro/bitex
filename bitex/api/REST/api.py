@@ -12,7 +12,7 @@ import requests
 # Import Homebrew
 from bitex.api.REST.response import APIResponse
 
-log = logging.getLogger(__name__)
+#log = logging.getLogger(__name__)
 
 
 class APIClient(metaclass=ABCMeta):
