@@ -75,6 +75,10 @@ class Bittrex(BittrexREST):
     def cancel_order(self, txid):
         q = {'uuid': txid}
         return self.private_query('market/cancel', params=q)
+    
+    @return_api_response(None)
+    def orders(self):
+        return self.private_query('market/getopenorders')
 
     @return_api_response(fmt.order_status)
     def order(self, order_id, **kwargs):
