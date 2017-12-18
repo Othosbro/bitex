@@ -30,7 +30,7 @@ class BitfinexREST(APIClient):
             req = {}
         if self.version == 'v1':
             req['request'] = endpoint_path
-            req['nonce'] = self.nonce()
+            req['nonce'] = str(round(time.time()*time.time()) * 20000)
 
             js = json.dumps(req)
             data = base64.standard_b64encode(js.encode('utf8'))
