@@ -8,6 +8,7 @@ import json
 import hashlib
 import hmac
 import base64
+import time
 
 # Import Homebrew
 from bitex.api.REST.api import APIClient
